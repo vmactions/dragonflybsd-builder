@@ -1,0 +1,39 @@
+name: "Build"
+on:
+  push:
+    branches:
+      - '*'
+    paths:
+      - '*.sh'
+      - '.github/workflows/build.yml'
+      - '*.txt'
+      - 'conf/*'
+      - 'hooks/*'
+
+  release:
+    types: [ created ]
+
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: ["6.2.2"]
+    runs-on: macos-12
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        bash build.sh conf/dragonflybsd-${{ matrix.os }}.conf
+    - name: Upload Release Asset
+      if: "contains(github.ref, 'refs/tags/')"
+      id: upload-release-asset
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          dragonflybsd-${{ matrix.os }}.ova
+          dragonflybsd-${{ matrix.os }}-id_rsa.pub
+          dragonflybsd-${{ matrix.os }}-mac.id_rsa
+
+

@@ -1,0 +1,6 @@
+#
+# wait screen text  | press key
+
+
+nonexist | sleep 10000
+
