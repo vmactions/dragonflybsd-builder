@@ -1,6 +1,56 @@
 #
 # wait screen text  | press key
 
+Booting in | enter
 
-nonexist | sleep 10000
+To start the installer | string installer; enter
+
+Install DragonFly BSD on a HDD | enter
+
+As with any installation process | enter
+
+Legacy BIOS | tab; enter
+
+Select a disk on which to install | enter
+
+Select how much of this disk you want to use | enter
+
+
+Are you ABSOLUTELY SURE | enter; sleep 3; enter
+
+Please select the file system you want to use with DragonFly BSD | enter
+
+
+Set up the subpartitions you want to have | down; down; down; down; down; enter
+
+Small HAMMER filesystems can | enter
+
+Everything is now ready to install | enter
+
+
+You may now wish to install bootblocks  | down; enter; sleep 3; enter
+
+DragonFly BSD has successfully been installed | enter
+
+
+Configure network interfaces |  down; down; down; down; down; enter
+
+
+Please select which interface you would | enter
+
+Would you like to enable DHCP | enter
+
+status: active | enter
+
+The options on this menu allow you | down; down; down; down; down; down; down; down; down; down; enter
+
+
+
+Also, you can use this automated application | tab; tab; tab; tab; enter
+
+This machine is about to be shut down | enter
+
+
+Please press any key to reboot | sleep 1
+
 
