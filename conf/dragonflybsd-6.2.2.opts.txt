@@ -28,7 +28,7 @@ Set up the subpartitions| sleep 3; tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  
 Everything is now ready to install | enter
 
 
-You may now wish to install bootblocks| sleep 1 ; down; sleep 1; enter; sleep 3; enter
+You may now wish to install bootblocks| sleep 1 ; tab; sleep 1 ; tab; sleep 1 ; tab; sleep 1; enter; sleep 3; enter
 
 
 
