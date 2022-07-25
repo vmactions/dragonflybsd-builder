@@ -3,11 +3,11 @@
 
 chmod +w /etc/ssh/sshd_config
 
-sed -i "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/" /etc/ssh/sshd_config
+sed -i "s/#PermitRootLogin /PermitRootLogin yes/" /etc/ssh/sshd_config
 
-sed -i "s/#PermitEmptyPasswords no/PermitEmptyPasswords yes/" /etc/ssh/sshd_config
+sed -i "s/PermitEmptyPasswords /PermitEmptyPasswords yes/" /etc/ssh/sshd_config
 
-sed -i "s/#PubkeyAuthentication yes/PubkeyAuthentication yes/" /etc/ssh/sshd_config
+sed -i "s/#PubkeyAuthentication /PubkeyAuthentication yes/" /etc/ssh/sshd_config
 
 
 echo "AcceptEnv   *"  >> /etc/ssh/sshd_config
