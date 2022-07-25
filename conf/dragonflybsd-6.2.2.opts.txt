@@ -18,7 +18,7 @@ Select how much of this disk you want to use | enter
 
 Are you ABSOLUTELY SURE | enter; sleep 3; enter
 
-Please select the file system you want to use with DragonFly BSD | enter
+Please select the file system you want to use with DragonFly BSD | tab; tab; enter
 
 
 Set up the subpartitions you want to have | sleep 3; tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2; enter
