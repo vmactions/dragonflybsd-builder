@@ -21,7 +21,7 @@ Are you ABSOLUTELY SURE | enter; sleep 3; enter
 Please select the file system you want to use with DragonFly BSD | tab; tab; enter
 
 
-Set up the subpartitions you want to have | sleep 3; tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2; enter
+Set up the subpartitions| sleep 3; tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2; enter
 
 Small HAMMER filesystems can | enter
 
