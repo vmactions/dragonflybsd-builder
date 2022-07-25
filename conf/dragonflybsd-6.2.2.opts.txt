@@ -45,7 +45,7 @@ Would you like to enable DHCP | enter
 
 status: active | enter
 
-The options on this menu allow you | sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; enter
+The options on this menu allow you | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
 
 
 
