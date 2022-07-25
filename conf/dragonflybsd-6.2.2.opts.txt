@@ -36,7 +36,7 @@ You may now wish to install bootblocks| sleep 1 ; tab; sleep 1 ; tab; sleep 1 ; 
 DragonFly BSD has successfully been installed | enter
 
 
-Configure network interfaces |  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; down;  sleep 1; enter
+Configure network interfaces |  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
 
 
 Please select which interface you would | enter
