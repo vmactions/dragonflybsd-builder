@@ -35,6 +35,6 @@ jobs:
           dragonflybsd-${{ matrix.os }}.ova
           dragonflybsd-${{ matrix.os }}-id_rsa.pub
           dragonflybsd-${{ matrix.os }}-mac.id_rsa
-          dragonflybsd-${{ matrix.os }}.iso
+          dragonflybsd.iso
 
 
