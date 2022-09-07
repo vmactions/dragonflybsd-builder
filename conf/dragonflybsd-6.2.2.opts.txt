@@ -7,7 +7,7 @@ To start the installer | string installer; enter
 
 DragonFly BSD on a HDD | enter
 
-As with any installation process | enter
+As with any installation proce | enter
 
 Legacy BIOS | tab; enter
 
