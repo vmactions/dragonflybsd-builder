@@ -5,7 +5,7 @@ Booting in | enter
 
 To start the installer | string installer; enter
 
-Install DragonFly BSD on a HDD | enter
+DragonFly BSD on a HDD | enter
 
 As with any installation process | enter
 
