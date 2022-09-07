@@ -9,7 +9,7 @@ DragonFly BSD on a HDD | enter
 
 As with any installation proce | enter
 
-Legacy BIOS | tab; enter
+Legacy | tab; enter
 
 Select a disk on which to install | enter
 
