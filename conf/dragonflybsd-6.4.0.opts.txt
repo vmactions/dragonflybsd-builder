@@ -45,10 +45,10 @@ Would you like to enable DHCP | enter
 
 status: active | enter
 
-The options on this menu allow you | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
+The options on this menu allow you | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;   sleep 1; enter
 
 
-Local or UTC | tab; enter
+
 
 
 Welcome to the DragonFly BSD Live CD | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
