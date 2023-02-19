@@ -29,7 +29,7 @@ jobs:
     env:
       SEC_VBOX : ${{ secrets.SEC_VBOX }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: |
         bash build.sh conf/dragonflybsd-${{ matrix.os }}.conf
     - name: Upload Release Asset
