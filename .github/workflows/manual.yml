@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: macos-12
     env:
-      RELEASE: "6.2.2"
+      RELEASE: "6.4.0"
       DEBUG: 1
       VM_OS_NAME: dragonflybsd
       NGROK_TOKEN : ${{ secrets.NGROK_TOKEN }}
