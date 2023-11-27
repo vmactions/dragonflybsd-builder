@@ -60,8 +60,8 @@ fi
 chmod +x "$vmsh"
 
 
-$vmsh addSSHHost  $osname $sshport
 
+$vmsh startWeb $osname
 
 
 $vmsh setup 
@@ -75,20 +75,6 @@ $vmsh createVM  $VM_ISO_LINK $osname $ostype $sshport
 # Enable multi-processor so that the MP kernel gets installed.
 $vmsh setCPU $osname 2
 
-
-$vmsh startWeb $osname
-
-
-
-$vmsh startCF
-
-
-_sleep=20
-echo "Sleep $_sleep seconds, please open the link in your browser."
-sleep $_sleep
-
-$vmsh startVM $osname
-
 sleep 2
 
 
@@ -98,10 +84,13 @@ $vmsh  processOpts  $osname  "$opts"
 
 $vmsh shutdownVM $osname
 
+while $vmsh isRunning $osname; do
+  sleep 5
+done
 
-$vmsh detachISO $osname
 
 $vmsh startVM $osname
+
 
 
 
@@ -117,12 +106,16 @@ inputKeys "string root; enter"
 sleep 2
 
 
+if [ ! -e ~/.ssh/id_rsa ] ; then 
+  ssh-keygen -f  ~/.ssh/id_rsa -q -N "" 
+fi
+
 
 cat enablessh.txt >enablessh.local
 
 
 #add ssh key twice, to avoid bugs.
-echo "echo '$(base64 ~/.ssh/id_rsa.pub)' | openssl base64 -d >>~/.ssh/authorized_keys" >>enablessh.local
+echo "echo '$(base64 -w 0 ~/.ssh/id_rsa.pub)' | openssl base64 -d >>~/.ssh/authorized_keys" >>enablessh.local
 echo "" >>enablessh.local
 
 echo "echo '$(cat ~/.ssh/id_rsa.pub)' >>~/.ssh/authorized_keys" >>enablessh.local
@@ -137,11 +130,17 @@ echo >>enablessh.local
 
 $vmsh inputFile $osname enablessh.local
 
+
+###############################################################
+
+$vmsh addSSHHost  $osname
+
+
 ssh $osname sh <<EOF
 echo 'StrictHostKeyChecking=accept-new' >.ssh/config
 
 echo "Host host" >>.ssh/config
-echo "     HostName  10.0.2.2" >>.ssh/config
+echo "     HostName  192.168.122.1" >>.ssh/config
 echo "     User runner" >>.ssh/config
 echo "     ServerAliveInterval 1" >>.ssh/config
 
@@ -180,18 +179,31 @@ $vmsh shutdownVM $osname
 
 
 
-ova="$osname-$VM_RELEASE.ova"
+ova="$osname-$VM_RELEASE.qcow2"
 
 
 echo "Exporting $ova"
 $vmsh exportOVA $osname "$ova"
 
-cp ~/.ssh/id_rsa  $osname-$VM_RELEASE-mac.id_rsa
+cp ~/.ssh/id_rsa  $osname-$VM_RELEASE-host.id_rsa
 
 
 ls -lah
 
 
+##############################################################
 
+echo "Checking the packages: $VM_RSYNC_PKG $VM_SSHFS_PKG"
+
+if [ -z "$VM_RSYNC_PKG$VM_SSHFS_PKG" ]; then
+  echo "skip"
+else
+  $vmsh startVM $osname
+
+  waitForText "$VM_LOGIN_TAG"
+  sleep 2
+
+  ssh $osname sh <<<"$VM_INSTALL_CMD $VM_RSYNC_PKG $VM_SSHFS_PKG"
+fi
 
 
