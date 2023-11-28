@@ -56,6 +56,6 @@ to the DragonFly BSD Live CD | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  slee
 about to be shut down | enter
 
 
-Please press any key to reboot | sleep 1
+Please press any key to reboot | sleep 1 | 30
 
 
