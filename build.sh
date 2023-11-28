@@ -171,10 +171,11 @@ sleep 30
 
 
 ###############################################################
-inputKeys "enter"
+
 
 while $vmsh isRunning $osname; do
   sleep 5
+  inputKeys "enter"
 done
 
 
