@@ -53,7 +53,7 @@ The options on this menu allow you | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;
 
 to the DragonFly BSD Live CD | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
 
-about to be shut down | enter; sleep 30
+about to be shut down | enter; sleep 5;
 
 
 
