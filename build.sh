@@ -205,7 +205,7 @@ if [ -z "$VM_RSYNC_PKG$VM_SSHFS_PKG" ]; then
 else
   $vmsh startVM $osname
 
-  waitForText "$VM_LOGIN_TAG"
+  waitForText "logi"
   sleep 2
 
   ssh $osname sh <<<"$VM_INSTALL_CMD $VM_RSYNC_PKG $VM_SSHFS_PKG"
