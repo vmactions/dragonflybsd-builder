@@ -16,7 +16,7 @@ Select a disk on which | enter
 Select how much of this disk you want to use | enter
 
 
-Are you ABSOLUTELY SURE | enter; sleep 3; enter
+you ABSOLUTELY SURE | enter; sleep 3; enter
 
 Please select the file system you want to use with DragonFly BSD | enter
 
