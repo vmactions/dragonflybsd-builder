@@ -80,9 +80,10 @@ sleep 2
 
 $vmsh  processOpts  $osname  "$opts"
 
-inputKeys "enter"
+
 
 $vmsh shutdownVM $osname
+$vmsh destroyVM $osname
 
 while $vmsh isRunning $osname; do
   sleep 5
