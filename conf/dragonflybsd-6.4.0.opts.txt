@@ -5,58 +5,55 @@ Booting in | enter
 
 To start the installer | string installer; enter
 
-Install DragonF | enter; sleep 2; enter; sleep 3; tab; enter
+DragonFly BSD on a HDD | enter
 
-#As with any installation proce | enter
+As with any installation proce | enter
 
-#Legacy | tab; enter
+Legacy | tab; enter
 
 Select a disk on which | enter
 
-Use Entire Disk | enter
+Select how much of this disk you want to use | enter
 
 
-ALL data | enter; sleep 3; enter; sleep 3; enter
+Are you ABSOLUTELY SURE | enter; sleep 3; enter
 
-#Please select the file system you want to use with DragonFly BSD | enter
-
-
-#Set up the subpartitions
-Note that | sleep 3; tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2; enter; sleep 2; enter 
-
-#Small HAMMER filesystems can | enter
-
-Begin Installing | enter
+Please select the file system you want to use with DragonFly BSD | enter
 
 
-wish to install bootblocks| sleep 1 ; tab; sleep 1 ; tab; sleep 1 ; tab; sleep 1; enter; sleep 3; enter
+Set up the subpartitions| sleep 3; tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2;  tab; sleep 2; enter
 
+Small HAMMER filesystems can | enter
+
+Everything is now ready to install | enter
+
+
+You may now wish to install bootblocks| sleep 1 ; tab; sleep 1 ; tab; sleep 1 ; tab; sleep 1; enter; sleep 3; enter
 
 
 
-Configure this | enter
+
+DragonFly BSD has successfully been installed | enter
 
 
-network interfaces |  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
+Configure network interfaces |  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
 
 
-Please select which interface you would | enter; sleep 10; enter
+Please select which interface you would | enter
 
-#Would you like to enable DHCP | enter
+Would you like to enable DHCP | enter
 
-#status: active | enter
+status: active | enter
 
-#The options on this menu allow you 
-network interfaces | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;   sleep 1; enter
+The options on this menu allow you | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;   sleep 1; enter
 
 
 
 
 
-#Welcome to the DragonFly BSD Live CD 
-Install DragonF | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter; sleep 3; enter
+Welcome to the DragonFly BSD Live CD | sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; tab;  sleep 1; enter
 
-#This machine is about to be shut down | enter
+This machine is about to be shut down | enter
 
 
 Please press any key to reboot | sleep 1
