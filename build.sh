@@ -170,8 +170,7 @@ ssh $osname  "$VM_SHUTDOWN_CMD"
 
 sleep 30
 
-$vmsh shutdownVM $osname
-$vmsh destroyVM $osname
+
 
 ###############################################################
 while $vmsh isRunning $osname; do
