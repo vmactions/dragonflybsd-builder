@@ -167,9 +167,11 @@ fi
 
 ssh $osname  "$VM_SHUTDOWN_CMD"
 
-sleep 5
+sleep 30
+
 
 ###############################################################
+$vmsh shutdownVM $osname
 
 while $vmsh isRunning $osname; do
   sleep 5
