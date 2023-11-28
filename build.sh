@@ -171,8 +171,7 @@ sleep 30
 
 
 ###############################################################
-#force shutdown
-$vmsh destroyVM $osname
+inputKeys "enter"
 
 while $vmsh isRunning $osname; do
   sleep 5
