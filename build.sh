@@ -99,7 +99,7 @@ $vmsh startVM $osname
 
 
 
-waitForText "$VM_LOGIN_TAG"
+waitForText "logi"
 sleep 2
 
 inputKeys "string root; enter"
