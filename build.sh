@@ -99,7 +99,7 @@ $vmsh startVM $osname
 
 
 
-waitForText "logi"
+waitForText "$VM_LOGIN_TAG"
 sleep 2
 
 inputKeys "string root; enter"
@@ -205,8 +205,8 @@ if [ -z "$VM_RSYNC_PKG$VM_SSHFS_PKG" ]; then
 else
   $vmsh startVM $osname
 
-  waitForText "logi"
-  sleep 2
+  waitForText "Local package"
+  sleep 10
 
   ssh $osname sh <<<"$VM_INSTALL_CMD $VM_RSYNC_PKG $VM_SSHFS_PKG"
 fi
