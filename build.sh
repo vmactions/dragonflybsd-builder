@@ -208,7 +208,8 @@ else
   waitForText "Local package"
   sleep 10
 
-  ssh $osname sh <<<"$VM_INSTALL_CMD $VM_RSYNC_PKG $VM_SSHFS_PKG"
+  ssh $osname sh <<<"$VM_INSTALL_CMD $VM_RSYNC_PKG"
+  ssh $osname sh <<<"$VM_INSTALL_CMD $VM_SSHFS_PKG"
 fi
 
 
