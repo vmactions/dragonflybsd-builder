@@ -74,8 +74,6 @@ fi
 
 $vmsh createVM  $VM_ISO_LINK $osname $ostype $sshport
 
-# Enable multi-processor so that the MP kernel gets installed.
-$vmsh setCPU $osname 2
 
 sleep 2
 
@@ -94,7 +92,7 @@ done
 
 $vmsh startVM $osname
 
-
+sleep 2
 
 
 ###############################################
@@ -102,9 +100,10 @@ $vmsh startVM $osname
 
 
 waitForText "$VM_LOGIN_TAG"
-sleep 2
 
-inputKeys "string root; enter"
+sleep 3
+
+inputKeys "string root ; enter ; enter"
 
 sleep 2
 
@@ -139,7 +138,7 @@ $vmsh addSSHHost  $osname
 
 
 ssh $osname sh <<EOF
-echo 'StrictHostKeyChecking=accept-new' >.ssh/config
+echo 'StrictHostKeyChecking=no' >.ssh/config
 
 echo "Host host" >>.ssh/config
 echo "     HostName  192.168.122.1" >>.ssh/config
@@ -176,7 +175,11 @@ if [ -e "hooks/reboot.sh" ]; then
 else
   ssh "$osname" "cat - >/reboot.sh" <<EOF
 sleep 5
-ssh host "touch $osname.rebooted"
+ssh host sh <<END
+env | grep SSH_CLIENT | cut -d = -f 2 | cut -d ' ' -f 1 >$osname.rebooted
+
+END
+
 EOF
 fi
 
@@ -186,7 +189,7 @@ ssh "$osname" sh <<EOF
 chmod +x /reboot.sh
 cat /reboot.sh
 if uname -a | grep SunOS >/dev/null; then
-crontab -l | {  cat;  echo "@reboot /reboot.sh";   } | crontab --
+crontab -l | {  cat;  echo "* * * * * /reboot.sh";   } | crontab --
 else
 crontab -l | {  cat;  echo "@reboot /reboot.sh";   } | crontab -
 fi
