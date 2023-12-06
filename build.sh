@@ -204,6 +204,12 @@ sleep 30
 
 ###############################################################
 
+if $vmsh isRunning $osname; then
+  if !$vmsh shutdownVM $osname; then
+    echo "shutdown error"
+  fi
+fi
+
 while $vmsh isRunning $osname; do
   sleep 5
 done
