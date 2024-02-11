@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/vmactions/dragonflybsd-builder/actions/workflows/build.yml/badge.svg)](https://github.com/vmactions/dragonflybsd-builder/actions/workflows/build.yml)
 
-Latest: v0.9.1
+Latest: v0.9.2
 
 
 The image builder for [dragonflybsd-vm](https://github.com/vmactions/dragonflybsd-vm)
