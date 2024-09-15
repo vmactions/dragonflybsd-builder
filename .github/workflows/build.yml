@@ -61,7 +61,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          dragonflybsd-${{ matrix.os }}.qcow2.xz*
+          dragonflybsd-${{ matrix.os }}.qcow2.zst*
           dragonflybsd-${{ matrix.os }}-id_rsa.pub
           dragonflybsd-${{ matrix.os }}-host.id_rsa
 
