@@ -32,6 +32,7 @@ concurrency:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os: ["6.4.0"]
     runs-on: ubuntu-24.04

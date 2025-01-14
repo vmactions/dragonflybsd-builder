@@ -33,14 +33,18 @@ export VM_RELEASE
 export VM_OCR
 export VM_DISK
 export VM_ARCH
-
+export VM_CPU
+export VM_USE_CONSOLE_BUILD
+export VM_USE_SSHROOT_BUILD_SSH
+export VM_NO_VNC_BUILD
 
 ##############################################################
 
 
 waitForText() {
   _text="$1"
-  $vmsh waitForText $osname "$_text"
+  _sec="$2"
+  $vmsh waitForText $osname "$_text" "$_sec"
 }
 
 #keys splitted by ;
@@ -75,9 +79,13 @@ fi
 
 
 if [ "$VM_ISO_LINK" ]; then
+  #start from iso, install to the vir disk
+
   $vmsh createVM  $VM_ISO_LINK $osname $ostype $sshport
 
   sleep 2
+
+  $vmsh openConsole "$osname"
 
   if [ -e "hooks/installOpts.sh" ]; then
     echo "hooks/installOpts.sh"
@@ -100,15 +108,34 @@ if [ "$VM_ISO_LINK" ]; then
   fi
 
   while $vmsh isRunning $osname; do
-    sleep 5
+    sleep 20
   done
 
+  $vmsh closeConsole "$osname"
+
+
+  if [[ "$VM_ISO_LINK" == *"img" ]]; then
+    $vmsh detachIMG "$osname"
+  fi
+
 elif [ "$VM_VHD_LINK" ]; then
+  #if the vm disk is already provided FreeBSD, just import it.
   if [ ! -e "$osname.qcow2" ]; then
-    if [ ! -e "$osname.qcow2.xz" ]; then
-      $vmsh download "$VM_VHD_LINK" $osname.qcow2.xz
+    if [[ "$VM_VHD_LINK" == *"img.gz" ]]; then
+      _img="$osname.img"
+      if [ ! -e "$_img" ]; then
+        rm -f "$_img.gz"
+        $vmsh download "$VM_VHD_LINK" "$_img.gz"
+        gunzip -c "$_img.gz" > "$_img"
+      fi
+      qemu-img convert -f raw -O qcow2 -o preallocation=off "$_img" "$osname.qcow2"
+    else
+      if [ ! -e "$osname.qcow2.xz" ]; then
+        $vmsh download "$VM_VHD_LINK" $osname.qcow2.xz
+      fi
+      xz -d -T 0 --verbose  "$osname.qcow2.xz"
     fi
-    xz -d -T 0 --verbose  "$osname.qcow2.xz"
+
   fi
 
   $vmsh createVMFromVHD $osname $ostype $sshport
@@ -128,6 +155,8 @@ ls -lh
 start_and_wait() {
   $vmsh startVM $osname
   sleep 2
+  $vmsh openConsole "$osname"
+
   if [ -e "hooks/waitForLoginTag.sh" ]; then
     echo "hooks/waitForLoginTag.sh"
     cat "hooks/waitForLoginTag.sh"
@@ -153,6 +182,9 @@ shutdown_and_wait() {
   while $vmsh isRunning $osname; do
     sleep 5
   done
+
+  $vmsh closeConsole "$osname"
+
 }
 
 restart_and_wait() {
@@ -162,14 +194,15 @@ restart_and_wait() {
 
 ###############################################
 
-start_and_wait
 
-inputKeys "string root; enter; sleep 1;"
-if [ "$VM_ROOT_PASSWORD" ]; then
-  inputKeys "string $VM_ROOT_PASSWORD ; enter"
+#start the installed vm, and initialize the ssh access:
+
+
+if [ -z "$VM_NO_VNC_BUILD" ]; then
+  export VM_USE_CONSOLE_BUILD=""
 fi
-inputKeys "enter"
-sleep 2
+
+start_and_wait
 
 
 if [ ! -e ~/.ssh/id_rsa ] ; then 
@@ -179,21 +212,57 @@ fi
 cat enablessh.txt >enablessh.local
 
 
+echo "echo '$(cat ~/.ssh/id_rsa.pub)' >>~/.ssh/authorized_keys" >>enablessh.local
+echo "" >>enablessh.local
+echo "" >>enablessh.local
+echo "" >>enablessh.local
+
 #add ssh key twice, to avoid bugs.
 echo "echo '$(base64 -w 0 ~/.ssh/id_rsa.pub)' | openssl base64 -d >>~/.ssh/authorized_keys" >>enablessh.local
 echo "" >>enablessh.local
-
-echo "echo '$(cat ~/.ssh/id_rsa.pub)' >>~/.ssh/authorized_keys" >>enablessh.local
 echo "" >>enablessh.local
 
 
 echo >>enablessh.local
 echo "chmod 600 ~/.ssh/authorized_keys">>enablessh.local
-echo "exit">>enablessh.local
+
+echo "">>enablessh.local
 echo >>enablessh.local
 
 
-$vmsh inputFile $osname enablessh.local
+cat enablessh.local
+
+
+if [ "$VM_USE_SSHROOT_BUILD_SSH" ]; then
+  vmip=$($vmsh getVMIP $osname)
+  sshpass -p "$VM_ROOT_PASSWORD" ssh -o StrictHostKeyChecking=no -tt  root@$vmip TERM=xterm <enablessh.local
+  #sleep for the sshd server to restart
+  sleep 10
+  inputKeys "enter"
+  sleep 2
+  inputKeys "enter"
+  sleep 2
+  echo "check ssh access:"
+  ssh -vv root@$vmip pwd
+  echo "ssh OK"
+else
+  inputKeys "string root; enter; sleep 1;"
+  if [ "$VM_ROOT_PASSWORD" ]; then
+    inputKeys "string $VM_ROOT_PASSWORD ; enter"
+  fi
+  inputKeys "enter"
+  sleep 2
+
+  $vmsh screenText $osname
+  $vmsh inputFile $osname enablessh.local
+  $vmsh screenText $osname
+  #sleep for the sshd server to restart
+  sleep 10
+  inputKeys "enter"
+  sleep 2
+  inputKeys "enter"
+  sleep 2
+fi
 
 
 ###############################################################
@@ -206,7 +275,7 @@ echo 'StrictHostKeyChecking=no' >.ssh/config
 
 echo "Host host" >>.ssh/config
 echo "     HostName  192.168.122.1" >>.ssh/config
-echo "     User runner" >>.ssh/config
+echo "     User $USER" >>.ssh/config
 echo "     ServerAliveInterval 1" >>.ssh/config
 
 EOF
@@ -216,14 +285,23 @@ EOF
 if [ -e "hooks/postBuild.sh" ]; then
   echo "hooks/postBuild.sh"
   cat "hooks/postBuild.sh"
-  ssh $osname sh<"hooks/postBuild.sh"
+  export VM_RELEASE
+  ssh -o "SendEnv=VM_RELEASE" $osname sh<"hooks/postBuild.sh"
 
   # Reboot here, possible there were system updates done that need
   # a reboot to take effect before more operations can be done
   restart_and_wait
 fi
 
-ssh $osname 'cat ~/.ssh/id_rsa.pub' >$osname-$VM_RELEASE-id_rsa.pub
+
+output="$osname-$VM_RELEASE"
+if [ "$VM_ARCH" ]; then
+  output="$osname-$VM_RELEASE-$VM_ARCH"
+fi
+
+ssh $osname 'cat ~/.ssh/id_rsa.pub' >$output-id_rsa.pub
+
+
 
 #upload reboot.sh
 if [ -e "hooks/reboot.sh" ]; then
@@ -239,6 +317,7 @@ env | grep SSH_CLIENT | cut -d = -f 2 | cut -d ' ' -f 1 >$osname.rebooted
 END
 
 EOF
+  ssh "$osname" "cat /reboot.sh"
 fi
 
 #set cronjob
@@ -264,7 +343,8 @@ fi
 if [ -e "hooks/finalize.sh" ]; then
   echo "hooks/finalize.sh"
   cat "hooks/finalize.sh"
-  ssh $osname sh<"hooks/finalize.sh"
+  export VM_RELEASE
+  ssh -o "SendEnv=VM_RELEASE" $osname sh<"hooks/finalize.sh"
 fi
 
 # Done!
@@ -283,11 +363,13 @@ ls -lah
 echo "free space:"
 df -h
 
-ova="$osname-$VM_RELEASE.qcow2"
+
+
+ova="$output.qcow2"
 echo "Exporting $ova"
 $vmsh exportOVA $osname "$ova"
 
-cp ~/.ssh/id_rsa  $osname-$VM_RELEASE-host.id_rsa
+cp ~/.ssh/id_rsa  $output-host.id_rsa
 
 echo "contents after export:"
 ls -lah
@@ -300,7 +382,7 @@ echo "Checking the packages: $VM_RSYNC_PKG $VM_SSHFS_PKG"
 if [ -z "$VM_RSYNC_PKG$VM_SSHFS_PKG" ]; then
   echo "skip"
 else
-  $vmsh addSSHAuthorizedKeys $osname-$VM_RELEASE-id_rsa.pub
+  $vmsh addSSHAuthorizedKeys $output-id_rsa.pub
   $vmsh startVM $osname
   $vmsh waitForVMReady $osname
   if [ "$VM_RSYNC_PKG" ]; then
@@ -310,5 +392,7 @@ else
     ssh $osname sh <<<"$VM_INSTALL_CMD $VM_SSHFS_PKG"
   fi
 fi
+
+echo "Build finished."
 
 
