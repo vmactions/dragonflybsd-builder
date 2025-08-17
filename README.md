@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/vmactions/dragonflybsd-builder/actions/workflows/build.yml/badge.svg)](https://github.com/vmactions/dragonflybsd-builder/actions/workflows/build.yml)
 
-Latest: v0.9.7
+Latest: v0.9.8
 
 
 The image builder for [dragonflybsd-vm](https://github.com/vmactions/dragonflybsd-vm)
@@ -20,6 +20,6 @@ How to use:
 
     Just clone the repo. and run:
     ```bash
-    bash build.sh conf/dragonflybsd-6.4.0.conf
+    bash build.sh conf/dragonflybsd-6.4.2.conf
     ```
    
