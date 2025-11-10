@@ -65,5 +65,6 @@ jobs:
           dragonflybsd-${{ matrix.os }}.qcow2.zst*
           dragonflybsd-${{ matrix.os }}-id_rsa.pub
           dragonflybsd-${{ matrix.os }}-host.id_rsa
+          dragonflybsd-${{ matrix.os }}.xml
 
 
