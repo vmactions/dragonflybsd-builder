@@ -1,11 +1,11 @@
 
 
-[![Build](https://github.com/vmactions/dragonflybsd-builder/actions/workflows/build.yml/badge.svg)](https://github.com/vmactions/dragonflybsd-builder/actions/workflows/build.yml)
+[![Build](https://github.com/anyvm-org/dragonflybsd-builder/actions/workflows/build.yml/badge.svg)](https://github.com/anyvm-org/dragonflybsd-builder/actions/workflows/build.yml)
 
 Latest: v0.9.8
 
 
-The image builder for [dragonflybsd-vm](https://github.com/vmactions/dragonflybsd-vm)
+The image builder for `dragonflybsd`
 
 
 How to use:
