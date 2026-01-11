@@ -8,7 +8,13 @@ Latest: v0.9.8
 The image builder for `dragonflybsd`
 
 
-How to use:
+All the supported releases are here:
+
+
+
+
+
+How to build:
 
 1. Use the [manual.yml](.github/workflows/manual.yml) to build manually.
    
